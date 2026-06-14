@@ -1,58 +1,87 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Информационная система «МВЕК-Транс»
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Веб-приложение для автоматизации учета и оперативного контроля рейсов транспортного предприятия. Разработано в качестве практической части курсовой работы.
 
-## About Laravel
+## Функционал системы
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+* Реестр рейсов: Информационная сетка с оперативными данными о маршрутах, водителях, датах и ценообразовании.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+* Фильтрация и поиск: Регистронезависимый поиск по ключевым словам (ФИО водителя, города выезда/прибытия), а также фильтрация рейсов по категориям транспорта и текущему статусу (Запланирован, В пути, Доставлен, Отменен).
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+* Пагинация данных: Быстрая постраничная навигация с сохранением выбранных фильтров при переходе.
 
-## Learning Laravel
+* Панель диспетчера (CRUD): Полное управление рейсами (создание, просмотр, редактирование, удаление) с доступом только для авторизованных сотрудников.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+* Система инвайт-кодов: Защищенная регистрация новых пользователей по специальному коду доступа предприятия (MVEK2026).
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Технологический стек
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+* Backend: Laravel 11, PHP 8.4
 
-## Agentic Development
+* Frontend: Blade, Tailwind CSS, Alpine.js
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+* База данных: MySQL
 
-```bash
-composer require laravel/boost --dev
+* Сборщик фронтенда: Vite
 
-php artisan boost:install
-```
+## Локальное развертывание
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+Для запуска проекта на локальном компьютере выполните следующие шаги:
 
-## Contributing
+1. Клонирование репозитория
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+git clone [https://github.com/aydar-nbch/tk-mvek.git](https://github.com/aydar-nbch/tk-mvek.git)
+cd tk-mvek
 
-## Code of Conduct
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+2. Установка зависимостей
 
-## Security Vulnerabilities
+Установите серверные пакеты PHP и фронтенд-зависимости:
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+composer install
+npm install
 
-## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+3. Настройка окружения
+
+Скопируйте демонстрационный файл конфигурации в рабочий:
+
+cp .env.example .env
+
+
+Откройте созданный файл .env и укажите ваши локальные параметры подключения к базе данных MySQL:
+
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=mvek_trans_db
+DB_USERNAME=root
+DB_PASSWORD=
+
+
+4. Генерация ключа приложения и миграции
+
+php artisan key:generate
+php artisan migrate --seed
+
+
+Команда --seed автоматически заполнит базу данных начальными тестовыми категориями транспорта.
+
+5. Сборка фронтенда и запуск сервера
+
+В первом терминале запустите сборщик стилей:
+
+npm run dev
+
+
+Во втором терминале запустите встроенный локальный сервер Laravel:
+
+php artisan serve
+
+
+Проект будет доступен в браузере по адресу: http://127.0.0.1:8000
+
+🌐 Демонстрация (Продакшен)
+
+Рабочая версия проекта развернута на хостинге Hostiman и доступна по адресу:
+🔗 www.tk-mvek.h1n.ru
